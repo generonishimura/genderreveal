@@ -38,7 +38,7 @@ export function isValidCode(code: string): boolean {
 }
 
 export function buildRevealUrl(code: string, from: string): string {
-  const url = new URL('/', location.origin)
+  const url = new URL(import.meta.env.BASE_URL, location.href)
   url.searchParams.set('c', code)
   if (from) url.searchParams.set('f', from)
   return url.toString()

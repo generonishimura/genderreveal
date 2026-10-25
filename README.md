@@ -21,6 +21,9 @@ npm run dev
 npm run build
 ```
 
-## Vercel へのデプロイ
+## GitHub Pages へのデプロイ
 
-Vercel でこのリポジトリをインポートすると、`vercel.json` の設定でそのままビルドと公開ができます。
+1. リポジトリの Settings → Pages で、Source を「GitHub Actions」にします。
+2. `main` ブランチにプッシュすると、`.github/workflows/deploy.yml` が自動でビルドして公開します。
+
+公開先は `https://<ユーザー名>.github.io/genderreveal/` です。

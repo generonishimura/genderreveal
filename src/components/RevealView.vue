@@ -9,6 +9,7 @@ import Footprints from './Footprints.vue'
 
 const props = defineProps<{ code: string; from: string }>()
 const gender: Gender = genderOf(props.code)
+const home = import.meta.env.BASE_URL
 
 type Stage = 'intro' | 'tease1' | 'tease2' | 'confirm' | 'suspense' | 'revealed'
 const stage = ref<Stage>('intro')
@@ -202,7 +203,7 @@ onBeforeUnmount(() => {
         </p>
         <div class="row">
           <button class="btn soft" type="button" @click="replay">もう一度 見る</button>
-          <a class="btn ghost" href="/">わたしも作る</a>
+          <a class="btn ghost" :href="home">わたしも作る</a>
         </div>
       </div>
     </Transition>
