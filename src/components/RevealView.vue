@@ -168,14 +168,19 @@ onBeforeUnmount(() => {
       </svg>
     </button>
 
-    <p class="from maru">{{ stage === 'revealed' ? '' : fromLabel }}</p>
-    <Transition name="fade" mode="out-in">
-      <h1 v-if="stage !== 'revealed'" :key="headline" class="headline maru">{{ headline }}</h1>
-      <div v-else class="answer">
-        <p class="en script" :style="{ color: answer.color }">{{ answer.en }}</p>
-        <p class="ja maru">{{ answer.ja }}</p>
-      </div>
-    </Transition>
+    <!-- 各スロットは子要素を同じマスに重ねて表示するので、切り替え中もレイアウトが動かない -->
+    <div class="slot top">
+      <Transition name="fade">
+        <div v-if="stage !== 'revealed'" :key="headline" class="lead">
+          <p class="from maru">{{ fromLabel }}</p>
+          <h1 class="headline maru">{{ headline }}</h1>
+        </div>
+        <div v-else class="answer">
+          <p class="en script" :style="{ color: answer.color }">{{ answer.en }}</p>
+          <p class="ja maru">{{ answer.ja }}</p>
+        </div>
+      </Transition>
+    </div>
 
     <div class="stagebox">
       <button class="giftbtn" type="button" :disabled="!['intro', 'tease1', 'tease2'].includes(stage)" aria-label="プレゼントをタップ" @click="tapGift">
@@ -186,7 +191,8 @@ onBeforeUnmount(() => {
       </Transition>
     </div>
 
-    <Transition name="fade" mode="out-in">
+    <div class="slot bottom">
+    <Transition name="fade">
       <p v-if="hint" :key="hint" class="hint">{{ hint }}</p>
       <div v-else-if="stage === 'confirm'" class="card confirm">
         <p class="maru q">ほんとうに 見ちゃう?</p>
@@ -207,6 +213,7 @@ onBeforeUnmount(() => {
         </div>
       </div>
     </Transition>
+    </div>
 
     <Balloons v-if="stage === 'revealed'" :gender="gender" />
     <canvas ref="canvas" class="confetti"></canvas>
@@ -214,7 +221,12 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-.reveal { min-height: 100vh; min-height: 100dvh; justify-content: center; padding-top: 64px; }
+.reveal { min-height: 100vh; min-height: 100dvh; justify-content: center; padding-top: 64px; gap: 8px; }
+.slot { display: grid; width: 100%; justify-items: center; }
+.slot > * { grid-area: 1 / 1; }
+.slot.top { min-height: 128px; align-items: end; }
+.slot.bottom { min-height: 228px; align-items: start; }
+.lead { display: flex; flex-direction: column; gap: 10px; align-items: center; }
 .sound {
   position: fixed;
   top: 14px;
@@ -230,13 +242,13 @@ onBeforeUnmount(() => {
   display: grid;
   place-items: center;
 }
-.from { margin: 0; min-height: 1.4em; color: var(--ink-soft); letter-spacing: 0.08em; }
-.headline { margin: 0; min-height: 2.6em; font-size: 22px; font-weight: 500; line-height: 1.6; transition: color 1s; }
+.from { margin: 0; color: var(--ink-soft); letter-spacing: 0.08em; }
+.headline { margin: 0; font-size: 22px; font-weight: 500; line-height: 1.6; transition: color 1s; }
 .s-suspense .headline, .s-suspense .from { color: #f5e6d6; }
 .stagebox { position: relative; display: grid; place-items: center; }
 .giftbtn { border: 0; background: none; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .giftbtn:disabled { cursor: default; }
-.hint { margin: 0; color: var(--ink-soft); animation: blink 1.8s ease-in-out infinite; }
+.hint { margin: 8px 0 0; color: var(--ink-soft); animation: blink 1.8s ease-in-out infinite; }
 @keyframes blink { 50% { opacity: 0.35; } }
 .count {
   position: absolute;
@@ -257,12 +269,12 @@ onBeforeUnmount(() => {
 .row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
 .row a { text-decoration: none; }
 
-.answer { animation: answerIn 1.1s cubic-bezier(0.2, 1.4, 0.4, 1); }
+.answer { animation: answerIn 1.1s cubic-bezier(0.2, 1.4, 0.4, 1); align-self: center; }
 .answer p { margin: 0; }
 .en { font-size: 64px; line-height: 1; transform: rotate(-4deg); }
 .ja { font-size: 26px; margin-top: 8px !important; letter-spacing: 0.1em; }
 @keyframes answerIn { from { transform: scale(0.3) translateY(30px); opacity: 0; } to { transform: none; opacity: 1; } }
-.done { display: flex; flex-direction: column; align-items: center; gap: 14px; z-index: 4; animation: answerIn 0.9s 0.6s both; }
+.done { display: flex; flex-direction: column; align-items: center; gap: 14px; z-index: 4; animation: answerIn 0.9s 0.7s both; }
 .msg { margin: 0; line-height: 1.9; font-size: 15px; }
 
 .confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 4; }
