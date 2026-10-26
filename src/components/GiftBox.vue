@@ -49,10 +49,14 @@ defineProps<{
 .m-idle .svg { animation: breathe 3s ease-in-out infinite; }
 .m-idle .bow { animation: bowSway 3s ease-in-out infinite; }
 .m-hop .svg { animation: hop 0.9s cubic-bezier(0.3, 0, 0.4, 1) 2, breathe 3s ease-in-out 1.8s infinite; }
-.m-shake .svg { animation: shake 0.16s linear infinite; }
+.m-hop .bow { animation: bowSway 3s ease-in-out infinite; }
+.m-shake .svg { animation: shake 0.18s linear infinite; }
+.m-shake .bow { animation: bowSway 0.6s ease-in-out infinite; }
 .m-shake .lid { transform: translateY(-6px) rotate(-2deg); }
-.m-pulse .svg { animation: pulse var(--beat, 0.9s) ease-in-out infinite; }
+.m-pulse .svg { animation: pulse var(--beat, 0.9s) ease-in-out infinite; transform-origin: 50% 70%; }
 .m-open .lid { transform: translate(40px, -190px) rotate(38deg); opacity: 0; }
+.m-open .body { animation: burst 0.7s cubic-bezier(0.3, 1.6, 0.5, 1); transform-origin: 50% 100%; }
+@keyframes burst { 0% { transform: scale(1, 1); } 35% { transform: scale(1.1, 0.88); } 70% { transform: scale(0.96, 1.06); } 100% { transform: scale(1, 1); } }
 
 @keyframes breathe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 @keyframes bowSway { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
@@ -64,9 +68,9 @@ defineProps<{
 }
 @keyframes shake {
   0% { transform: translate(0, 0) rotate(0); }
-  25% { transform: translate(-5px, 1px) rotate(-2.5deg); }
-  50% { transform: translate(4px, -2px) rotate(2deg); }
-  75% { transform: translate(-2px, 2px) rotate(-1deg); }
+  25% { transform: translate(-3px, 1px) rotate(-1.5deg); }
+  50% { transform: translate(3px, -1px) rotate(1.5deg); }
+  75% { transform: translate(-2px, 1px) rotate(-1deg); }
 }
 @keyframes pulse { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.07); } 30% { transform: scale(0.99); } 45% { transform: scale(1.04); } }
 
