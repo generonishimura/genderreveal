@@ -176,8 +176,8 @@ onBeforeUnmount(() => {
           <h1 class="headline maru">{{ headline }}</h1>
         </div>
         <div v-else class="answer">
-          <p class="en script" :style="{ color: answer.color }">{{ answer.en }}</p>
-          <p class="ja maru">{{ answer.ja }}</p>
+          <p class="en script pop" :style="{ color: answer.color }">{{ answer.en }}</p>
+          <p class="ja maru rise" style="--d: 0.12s">{{ answer.ja }}</p>
         </div>
       </Transition>
     </div>
@@ -195,21 +195,21 @@ onBeforeUnmount(() => {
     <Transition name="fade">
       <p v-if="hint" :key="hint" class="hint">{{ hint }}</p>
       <div v-else-if="stage === 'confirm'" class="card confirm">
-        <p class="maru q">ほんとうに 見ちゃう?</p>
+        <p class="maru q rise" style="--d: 0.25s">ほんとうに 見ちゃう?</p>
         <div class="row">
-          <button class="btn" type="button" @click="start">見る!</button>
-          <button class="btn soft" type="button" @click="notYet">まだ心の準備が…</button>
+          <button class="btn pop" style="--d: 0.33s" type="button" @click="start">見る!</button>
+          <button class="btn soft pop" style="--d: 0.39s" type="button" @click="notYet">まだ心の準備が…</button>
         </div>
       </div>
       <div v-else-if="stage === 'revealed'" class="card done">
         <Footprints :color="answer.color" />
-        <p class="maru msg">
+        <p class="maru msg rise" style="--d: 0.95s">
           <template v-if="from">{{ from }} に<br /></template>
           {{ gender === 'boy' ? '男の子' : '女の子' }}の赤ちゃんが やってきます。<br />あたたかく 見守ってね。
         </p>
         <div class="row">
-          <button class="btn soft" type="button" @click="replay">もう一度 見る</button>
-          <a class="btn ghost" :href="home">わたしも作る</a>
+          <button class="btn soft pop" style="--d: 1.05s" type="button" @click="replay">もう一度 見る</button>
+          <a class="btn ghost rise" style="--d: 1.11s" :href="home">わたしも作る</a>
         </div>
       </div>
     </Transition>
@@ -260,21 +260,22 @@ onBeforeUnmount(() => {
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
   pointer-events: none;
 }
-.count-enter-active { animation: countIn 0.9s ease-out; }
+.count-enter-active { animation: countIn 0.9s var(--e); }
 .count-leave-active { transition: opacity 0.15s; }
 .count-leave-to { opacity: 0; }
 @keyframes countIn { 0% { transform: scale(2.2); opacity: 0; } 30% { transform: scale(1); opacity: 1; } 100% { transform: scale(0.9); opacity: 0.9; } }
 
 .confirm .q { font-size: 18px; margin: 4px 0 16px; }
+.confirm { animation: cardIn 0.9s var(--e) 0.2s both; }
 .row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
 .row a { text-decoration: none; }
 
-.answer { animation: answerIn 1.1s cubic-bezier(0.2, 1.4, 0.4, 1); align-self: center; }
+.answer { align-self: center; }
 .answer p { margin: 0; }
 .en { font-size: 64px; line-height: 1; transform: rotate(-4deg); }
 .ja { font-size: 26px; margin-top: 8px !important; letter-spacing: 0.1em; }
-@keyframes answerIn { from { transform: scale(0.3) translateY(30px); opacity: 0; } to { transform: none; opacity: 1; } }
-.done { display: flex; flex-direction: column; align-items: center; gap: 14px; z-index: 4; animation: answerIn 0.9s 0.7s both; }
+.done { display: flex; flex-direction: column; align-items: center; gap: 14px; z-index: 4; animation: cardIn 0.9s var(--e) 0.7s both; }
+@keyframes cardIn { from { opacity: 0; transform: translateY(24px) scale(0.985); filter: blur(6px); } 60% { filter: blur(0); } to { opacity: 1; transform: none; filter: blur(0); } }
 .msg { margin: 0; line-height: 1.9; font-size: 15px; }
 
 .confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 4; }

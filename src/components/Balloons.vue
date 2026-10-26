@@ -7,7 +7,7 @@ const balloons = Array.from({ length: 14 }, (_, i) => ({
   left: 6 + ((i * 41) % 88),
   color: shades[i % shades.length],
   size: 46 + ((i * 13) % 30),
-  delay: (i % 7) * 0.35 + (i > 6 ? 0.6 : 0),
+  delay: 0.3 + i * 0.07,
   dur: 6 + ((i * 7) % 4),
   sway: i % 2 ? 1 : -1,
 }))

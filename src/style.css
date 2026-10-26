@@ -16,6 +16,9 @@
   --tint: var(--cream);
   --radius: 22px;
   --shadow: 0 10px 30px rgba(120, 84, 60, 0.12), 0 2px 6px rgba(120, 84, 60, 0.08);
+  --e: cubic-bezier(0.16, 1, 0.3, 1);
+  --e2: cubic-bezier(0.33, 1, 0.68, 1);
+  --io: cubic-bezier(0.65, 0, 0.35, 1);
   font-family: 'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', sans-serif;
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
@@ -76,7 +79,7 @@ button { font-family: inherit; color: inherit; }
   background: var(--ink);
   color: var(--paper);
   box-shadow: 0 4px 0 #3e312b;
-  transition: transform 0.12s, box-shadow 0.12s, opacity 0.2s;
+  transition: transform 0.2s var(--e2), box-shadow 0.2s var(--e2), opacity 0.3s var(--e2);
 }
 .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #3e312b; }
 .btn:disabled { opacity: 0.4; cursor: default; }
@@ -84,13 +87,18 @@ button { font-family: inherit; color: inherit; }
 .btn.soft:active { box-shadow: 0 1px 0 var(--kraft-dark); }
 .btn.ghost { background: transparent; box-shadow: none; color: var(--ink-soft); text-decoration: underline; text-underline-offset: 4px; font-weight: 500; padding: 8px 12px; }
 /* 消える側を先に短く、出る側を少し遅らせて、文字が重なって見えないようにする */
-.fade-leave-active { transition: opacity 0.25s ease-in, transform 0.25s ease-in; }
-.fade-enter-active { transition: opacity 0.45s ease-out 0.2s, transform 0.45s ease-out 0.2s; }
-.fade-enter-from { opacity: 0; transform: translateY(10px); }
-.fade-leave-to { opacity: 0; transform: translateY(-6px); }
+.fade-leave-active { transition: opacity 0.3s var(--e2), transform 0.3s var(--e2), filter 0.3s var(--e2); }
+.fade-enter-active { transition: opacity 0.7s var(--e2) 0.2s, transform 1.05s var(--e) 0.2s, filter 0.7s var(--e2) 0.2s; }
+.fade-enter-from { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+.fade-leave-to { opacity: 0; transform: translateY(-6px); filter: blur(4px); }
+/* 子要素を順番に出す */
+.rise { animation: rise 1.05s var(--e) both; animation-delay: var(--d, 0s); }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); filter: blur(4px); } 60% { filter: blur(0); } to { opacity: 1; transform: none; filter: blur(0); } }
+.pop { animation: popIn 0.9s var(--e) both; animation-delay: var(--d, 0s); }
+@keyframes popIn { from { opacity: 0; transform: scale(0.85); filter: blur(4px); } 60% { filter: blur(0); } to { opacity: 1; transform: none; filter: blur(0); } }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
 .sky { transition: opacity 1.2s; }
 body[data-tint='dark'] .sky { opacity: 0.2; }
