@@ -5,19 +5,21 @@ const steps = Array.from({ length: 6 }, (_, i) => ({ x: i * 32, y: i % 2 ? 0 : 1
 
 <template>
   <svg class="feet" viewBox="0 0 200 40" aria-hidden="true">
+    <!-- 位置は外側の transform 属性で決め、アニメーションは内側の g にかける。
+         CSS の transform は SVG の transform 属性を上書きしてしまうため -->
     <g
       v-for="(s, i) in steps"
       :key="i"
-      class="foot"
-      :style="{ animationDelay: 0.85 + i * 0.08 + 's' }"
       :transform="`translate(${s.x + 8} ${s.y}) ${s.flip ? 'scale(-1 1) translate(-18 0)' : ''}`"
       :fill="color"
     >
-      <ellipse cx="9" cy="16" rx="6" ry="9" />
-      <circle cx="3.5" cy="4.5" r="2" />
-      <circle cx="7.5" cy="2.5" r="2" />
-      <circle cx="11.5" cy="2.8" r="1.8" />
-      <circle cx="14.5" cy="5" r="1.6" />
+      <g class="foot" :style="{ animationDelay: 0.85 + i * 0.08 + 's' }">
+        <ellipse cx="9" cy="16" rx="6" ry="9" />
+        <circle cx="3.5" cy="4.5" r="2" />
+        <circle cx="7.5" cy="2.5" r="2" />
+        <circle cx="11.5" cy="2.8" r="1.8" />
+        <circle cx="14.5" cy="5" r="1.6" />
+      </g>
     </g>
   </svg>
 </template>
