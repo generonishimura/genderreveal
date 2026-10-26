@@ -43,7 +43,7 @@ defineProps<{
 .gift { position: relative; width: 240px; height: 240px; }
 .svg { position: relative; width: 100%; height: 100%; overflow: visible; }
 .body, .lid, .bow { transform-box: fill-box; }
-.lid { transform-origin: 50% 100%; transition: transform 0.9s cubic-bezier(0.3, 1.5, 0.5, 1), opacity 0.9s; }
+.lid { transform-origin: 50% 100%; transition: transform 1.05s var(--e), opacity 0.7s var(--e2); }
 .bow { transform-origin: 50% 80%; }
 
 .m-idle .svg { animation: breathe 3s ease-in-out infinite; }
@@ -80,7 +80,7 @@ defineProps<{
   border-radius: 50%;
   opacity: 0;
   filter: blur(18px);
-  transition: opacity 0.25s, background 0.25s;
+  transition: opacity 0.3s var(--e2), background 0.3s var(--e2);
 }
 .g-gold .glow { opacity: 0.8; background: radial-gradient(circle, #ffe9b8 0%, transparent 65%); }
 .g-boy .glow { opacity: 1; background: radial-gradient(circle, var(--boy) 0%, transparent 65%); }

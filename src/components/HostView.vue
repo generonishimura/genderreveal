@@ -119,15 +119,15 @@ function restart() {
       </section>
 
       <section v-else key="done" class="card done">
-        <p class="maru big">発表用のURLが できました</p>
-        <p class="muted small">このURLを 家族や友だちに 送ってね。<br />開くと、プレゼントの箱が届きます。</p>
-        <input id="share-url" :value="url" type="text" readonly @focus="($event.target as HTMLInputElement).select()" />
-        <div class="row">
+        <p class="maru big rise">発表用のURLが できました</p>
+        <p class="muted small rise" style="--d: 0.06s">このURLを 家族や友だちに 送ってね。<br />開くと、プレゼントの箱が届きます。</p>
+        <input id="share-url" class="rise" style="--d: 0.12s" :value="url" type="text" readonly @focus="($event.target as HTMLInputElement).select()" />
+        <div class="row rise" style="--d: 0.18s">
           <button class="btn" type="button" @click="copy">{{ copied ? 'コピーしました' : 'URLをコピー' }}</button>
           <button v-if="canShare" class="btn soft" type="button" @click="share">送る</button>
         </div>
-        <p class="code">ひみつのコード <span>{{ code }}</span></p>
-        <button class="btn ghost" type="button" @click="restart">最初から作りなおす</button>
+        <p class="code rise" style="--d: 0.24s">ひみつのコード <span>{{ code }}</span></p>
+        <button class="btn ghost rise" style="--d: 0.3s" type="button" @click="restart">最初から作りなおす</button>
       </section>
     </Transition>
   </main>
@@ -158,13 +158,14 @@ input[type='text'] {
   border: 2px solid #eedfcb;
   border-radius: 14px;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.3s var(--e2);
 }
 input[type='text']:focus { border-color: var(--kraft-dark); }
 .label { margin: 4px 0 0; font-weight: 700; }
 .choices { display: flex; gap: 12px; }
 .choice {
   position: relative;
+  transition: transform 0.5s var(--e), opacity 0.3s var(--e2), border-color 0.3s var(--e2);
   z-index: 1;
   flex: 1;
   display: flex;
@@ -176,7 +177,6 @@ input[type='text']:focus { border-color: var(--kraft-dark); }
   border: 2px dashed transparent;
   cursor: pointer;
   font-size: 18px;
-  transition: transform 0.2s, opacity 0.3s, border-color 0.2s, background 0.2s;
 }
 .choice.boy { background: var(--boy-tint); color: var(--boy-deep); }
 .choice.girl { background: var(--girl-tint); color: var(--girl-deep); }
@@ -192,10 +192,10 @@ input[type='text']:focus { border-color: var(--kraft-dark); }
 
 .sealing { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 20px 0; }
 .envelope { width: 220px; overflow: visible; }
-.flap { transform-box: fill-box; transform-origin: 50% 0; animation: flap 0.9s ease-in-out both; }
+.flap { transform-box: fill-box; transform-origin: 50% 0; animation: flap 0.9s var(--io) both; }
 @keyframes flap { from { transform: scaleY(-1); } to { transform: scaleY(1); } }
-.seal { transform-box: fill-box; transform-origin: center; animation: stamp 0.6s 0.9s cubic-bezier(0.3, 1.6, 0.5, 1) both; }
-@keyframes stamp { from { transform: scale(2.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.seal { transform-box: fill-box; transform-origin: center; animation: stamp 0.8s 0.9s var(--e) both; }
+@keyframes stamp { from { transform: scale(1.8); opacity: 0; filter: blur(4px); } to { transform: scale(1); opacity: 1; filter: blur(0); } }
 
 .done { display: flex; flex-direction: column; gap: 14px; }
 .done > * { position: relative; z-index: 1; margin: 0; }

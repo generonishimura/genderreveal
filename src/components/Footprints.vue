@@ -9,7 +9,7 @@ const steps = Array.from({ length: 6 }, (_, i) => ({ x: i * 32, y: i % 2 ? 0 : 1
       v-for="(s, i) in steps"
       :key="i"
       class="foot"
-      :style="{ animationDelay: 0.9 + i * 0.35 + 's' }"
+      :style="{ animationDelay: 0.85 + i * 0.08 + 's' }"
       :transform="`translate(${s.x + 8} ${s.y}) ${s.flip ? 'scale(-1 1) translate(-18 0)' : ''}`"
       :fill="color"
     >
@@ -24,6 +24,6 @@ const steps = Array.from({ length: 6 }, (_, i) => ({ x: i * 32, y: i % 2 ? 0 : 1
 
 <style scoped>
 .feet { width: 200px; height: 40px; overflow: visible; }
-.foot { opacity: 0; animation: step 0.4s ease-out forwards; }
-@keyframes step { from { opacity: 0; } to { opacity: 0.75; } }
+.foot { opacity: 0; transform-box: fill-box; transform-origin: center; animation: step 0.9s var(--e) forwards; }
+@keyframes step { from { opacity: 0; transform: scale(0.85); } to { opacity: 0.75; transform: none; } }
 </style>
