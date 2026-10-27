@@ -9,7 +9,6 @@ import Footprints from './Footprints.vue'
 
 const props = defineProps<{ code: string; from: string }>()
 const gender: Gender = genderOf(props.code)
-const home = import.meta.env.BASE_URL
 
 type Stage = 'intro' | 'tease1' | 'tease2' | 'confirm' | 'suspense' | 'revealed'
 const stage = ref<Stage>('intro')
@@ -111,7 +110,7 @@ async function start() {
   count.value = null
 
   // 青とピンクで光が入れかわり、だんだん遅くなる
-  caption.value = 'どっちかな…?'
+  caption.value = '男の子かな… 女の子かな…?'
   let delay = 80
   let current: Gender = 'girl'
   while (delay < 560 && alive()) {
@@ -209,7 +208,6 @@ onBeforeUnmount(() => {
         </p>
         <div class="row">
           <button class="btn soft pop" style="--d: 1.05s" type="button" @click="replay">もう一度 見る</button>
-          <a class="btn ghost rise" style="--d: 1.11s" :href="home">わたしも作る</a>
         </div>
       </div>
     </Transition>
