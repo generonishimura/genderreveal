@@ -25,7 +25,7 @@ const fromLabel = computed(() => (props.from ? `${props.from} から` : ''))
 const headline = computed(() => {
   switch (stage.value) {
     case 'intro':
-      return '赤ちゃんについて 大切なお知らせが 届きました'
+      return '大切なお知らせが 届きました'
     case 'tease1':
       return 'あれ…? 中で なにか動いたみたい'
     case 'tease2':
@@ -241,7 +241,7 @@ onBeforeUnmount(() => {
   place-items: center;
 }
 .from { margin: 0; color: var(--ink-soft); letter-spacing: 0.08em; }
-.headline { margin: 0; font-size: 22px; font-weight: 500; line-height: 1.6; word-break: keep-all; transition: color 1s; }
+.headline { margin: 0; font-size: 22px; font-weight: 500; line-height: 1.6; transition: color 1s; }
 .s-suspense .headline, .s-suspense .from { color: #f5e6d6; }
 .stagebox { position: relative; display: grid; place-items: center; }
 .giftbtn { border: 0; background: none; padding: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
